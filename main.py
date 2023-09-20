@@ -1,4 +1,10 @@
 ## This is a Tabnine-generated program to play tic-tac-toe. It is a placeholder for the structure of a turn-based Pykémon battle.
+import random
+from mons import *
+
+damage = random(0.8, 1) * (4 * (power * (attack / defense))/50)
+
+charmaner = Pykemon('Charmander', 4, 20, 20, 2, 4, 4, 6, Move()[''])
 
 if "__name__" == "__main__":
     while(victory := False):
