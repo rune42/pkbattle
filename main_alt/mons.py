@@ -1,21 +1,22 @@
 import random
 class Pykemon:
-    def __init__(self, name, dexNum, currentHP, baseHP, baseAtk, baseDef, baseSpd):
+    def __init__(self, name, dexNum, baseHP, baseAtk, baseDef, baseSpd):
         self.dexNum = dexNum
         self.name = name
-        self.currentHP = currentHP
-        self.baseHP = baseHP
+        self._baseHP = baseHP
+        self.currentHP = baseHP
         self.baseAtk = baseAtk
         self.baseDef = baseDef
         self.baseSpd = baseSpd
 
     def attack(self):
         # damage = random.uniform(0.8, 1) * (4 * (self.power * (self.baseAtk / self.baseDef)) / 50) # TORNA MOLT PETIT
-        damage = round((random.random() * 1.5), 2) * self.baseAtk
-        return damage
+        damage = (random.random() * 1.5) * self.baseAtk
+        return round(damage)
 
     def harm(self, damage):
         self.currentHP -= damage
+        return self.currentHP
 
     def heal(self, healing):
         if self.currentHP + healing <= self.maxHP:
