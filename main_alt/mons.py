@@ -11,7 +11,7 @@ class Pykemon:
 
     def attack(self):
         # damage = random.uniform(0.8, 1) * (4 * (self.power * (self.baseAtk / self.baseDef)) / 50) # TORNA MOLT PETIT
-        damage = self.baseAtk
+        damage = round((random.random() * 1.5), 2) * self.baseAtk
         return damage
 
     def harm(self, damage):
