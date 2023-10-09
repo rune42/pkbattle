@@ -31,15 +31,17 @@ class Electric(Pykemon):
     def descripcion_juego(self, name):
         return f'Soy {name}, un Pykemon eléctrico!'
 
-    def attack(self):
-        return round(random.uniform(0.8, 1) * (4 * (self.baseAtk * (self.baseAtk / self.baseDef)) / 50))
+    #def attack(self):
+        #return round(random.uniform(0.8, 1) * (4 * (self.baseAtk * (self.baseAtk / self.baseDef)) / 50))
+    attack = lambda self: round(random.uniform(0.8, 1) * (4 * (self.baseAtk * (self.baseAtk / self.baseDef)) / 50))
 
 class Fire(Pykemon):
     def descripcion_juego(self, name):
         return f'Soy {name}, un Pykemon de fuego!'
 
-    def attack(self):
-        return round(random.uniform(0.8, 1) * (4 * (self.baseAtk * (self.baseAtk / self.baseDef)) / 50))
+    #def attack(self):
+        #return round(random.uniform(0.8, 1) * (4 * (self.baseAtk * (self.baseAtk / self.baseDef)) / 50))
+    attack = lambda self: round(random.uniform(0.8, 1) * (4 * (self.baseAtk * (self.baseAtk / self.baseDef)) / 50))
 
 class Battle:
     def __init__(self, pokemon1, pokemon2):
@@ -68,11 +70,12 @@ class Battle:
             print(f'{self.pokemon2.name} hace un ataque de {damage2}')
             life = self.pokemon1.harm(damage2)
 
-            if life <= 0:
-                print(f'La vida de {self.pokemon1.name} es {life} y del {self.pokemon2.name} es {life2}')
-                print(f'{self.pokemon1.name} ha sido derrotado. {self.pokemon2.name} ha ganado!')
-                break
-
+            # if life <= 0:
+            #     print(f'La vida de {self.pokemon1.name} es {life} y del {self.pokemon2.name} es {life2}')
+            #     print(f'{self.pokemon1.name} ha sido derrotado. {self.pokemon2.name} ha ganado!')
+            #     break
+            if life  = True
+                estado = "" if es_bonito else "No es bonito"
             print(f'La vida de {self.pokemon1.name} es {life} y del {self.pokemon2.name} es {life2}')
             time.sleep(2)
 
