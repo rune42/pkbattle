@@ -46,20 +46,36 @@ if __name__ == '__main__':
     charmander = Pykemon('Charmander', 4, 20, 20, 2, 4, 4, 6, Move()[''])
 
     print("Bienvenido a Pykémon! ¿Te has preparado para el combate?")
-    print("Tu rival saca a Squirtle!")
-    print("¡Adelante, Charmander!")
-    while battle := True:
-        print("----------------------------------------------------------------")
-        print("¿Qué debería hacer Charmander?")
-        print("----------------------------------------------------------------")
-        cmd = input("------------LUCHAR--------------||--------------DATOS-----------")
-        if cmd.casefold() == "luchar" :
-            mv = input('''---------ARAÑAZO-----------||------------(vacío)---------\n
-            ... ----------------------------------------------------------------
-            ... ------------(vacío)-------------||------------(vacío)---------''')
-            pass
-        elif cmd.casefold() == "datos":
-            pass
-        else:
-            throw ValueError("El comando ingresado no es válido.")
+    print("Tu rival saca a MISSINGNO.!")
+    print("¡Adelante, MISSINGNO.!")
+    while all(pykemon.currentHP > 0 for pykemon in self.pykemons):
+            for i in range(len(self.pykemons)):
+                attacker = self.pykemons[i]
+                defender = self.pykemons[(i+1)%len(self.pykemons)]
+
+                damage = attacker.attack()
+                print(f'{attacker.name} hace un ataque de {damage}')
+                defender.harm(damage)
+
+                if defender.currentHP <= 0:
+                    print(f'{defender.name} ha sido derrotado. {attacker.name} ha ganado!')
+                    return
+
+                print(f'La vida de {attacker.name} es {attacker.currentHP} y del {defender.name} es {defender.currentHP}')
+                time.sleep(2)
+    # 
+    # while battle := True:
+    #     print("----------------------------------------------------------------")
+    #     print("¿Qué debería hacer Charmander?")
+    #     print("----------------------------------------------------------------")
+    #     cmd = input("------------LUCHAR--------------||--------------DATOS-----------")
+    #     if cmd.casefold() == "luchar" :
+    #         mv = input('''---------ARAÑAZO-----------||------------(vacío)---------\n
+    #         ... ----------------------------------------------------------------
+    #         ... ------------(vacío)-------------||------------(vacío)---------''')
+    #         pass
+    #     elif cmd.casefold() == "datos":
+    #         pass
+    #     else:
+    #         throw ValueError("El comando ingresado no es válido.")
 
