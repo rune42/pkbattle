@@ -1,28 +1,65 @@
 ## This is a Tabnine-generated program to play tic-tac-toe. It is a placeholder for the structure of a turn-based Pykémon battle.
 import random
-from mons import *
 
-damage = random(0.8, 1) * (4 * (power * (attack / defense))/50)
+class Pykemon:
+    def __init__(self, name, dexNum, currentHP, baseHP, baseAtk, baseDef, baseSpd, moveSet):
+        self.dexNum = dexNum
+        self.name = name
+        self.currentHP = currentHP
+        self.baseHP = baseHP
+        self.baseAtk = baseAtk
+        self.baseDef = baseDef
+        self.baseSpd = baseSpd
+        self.moveSet = moveSet
 
-charmander = Pykemon('Charmander', 4, 20, 20, 2, 4, 4, 6, Move()[''])
+    def harm(self, damage):
+        self.currentHP -= damage
 
-print("Bienvenido a Pykémon! ¿Te has preparado para el combate?")
-print("Tu rival saca a Squirtle!")
-print("¡Adelante, Charmander!")
-while battle := True:
-    print("----------------------------------------------------------------")
-    print("¿Qué debería hacer Charmander?")
-    print("----------------------------------------------------------------")
-    cmd = input("------------LUCHAR--------------||--------------DATOS-----------")
-    if cmd.casefold() == "luchar" :
-        mv = input('''---------ARAÑAZO-----------||------------(vacío)---------\n
-        ... ----------------------------------------------------------------
-        ... ------------(vacío)-------------||------------(vacío)---------''')
-        pass
-    elif cmd.casefold() == "datos":
-        pass
-    else:
-        throw ValueError("El comando ingresado no es válido.")
+    def heal(self, healing):
+        if self.currentHP + healing <= self.maxHP:
+            self.currentHP += healing
+        else:
+            self.currentHP = self.maxHP
 
-    
+class Move:
+    def __init__(self, name, maxPP, type, power):
+        self.name = name
+        self._maxPP = maxPP
+        self.currentPP = maxPP
+        self.type = type
+        self._power = power
+        self._critChance = 0.075
+
+    def attack(self, attacker, defender):
+        if isinstance(attacker, Pykemon) and isinstance(defender, Pykemon):
+            if self.currentPP > 0:
+                damage = (random.uniform(0.8, 1) * (4 * self.power * (attacker.baseAtk / defender.baseDef)) / 50)
+                self.currentPP -= 1
+                return damage
+            else:
+                print("¡No quedan PP para usar este ataque!")
+                return None
+
+
+if __name__ == '__main__':
+
+    charmander = Pykemon('Charmander', 4, 20, 20, 2, 4, 4, 6, Move()[''])
+
+    print("Bienvenido a Pykémon! ¿Te has preparado para el combate?")
+    print("Tu rival saca a Squirtle!")
+    print("¡Adelante, Charmander!")
+    while battle := True:
+        print("----------------------------------------------------------------")
+        print("¿Qué debería hacer Charmander?")
+        print("----------------------------------------------------------------")
+        cmd = input("------------LUCHAR--------------||--------------DATOS-----------")
+        if cmd.casefold() == "luchar" :
+            mv = input('''---------ARAÑAZO-----------||------------(vacío)---------\n
+            ... ----------------------------------------------------------------
+            ... ------------(vacío)-------------||------------(vacío)---------''')
+            pass
+        elif cmd.casefold() == "datos":
+            pass
+        else:
+            throw ValueError("El comando ingresado no es válido.")
 
