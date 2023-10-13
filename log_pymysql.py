@@ -49,5 +49,6 @@ def insert_random_data():
     cursor.execute(insert_query, data)
 
 connection.commit()
+insert_random_data()
 cursor.close()
 connection.close()
