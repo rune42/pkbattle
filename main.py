@@ -1,28 +1,78 @@
-## This is a Tabnine-generated program to play tic-tac-toe. It is a placeholder for the structure of a turn-based Pykémon battle.
+from abc import ABC, abstractmethod
+import time
 import random
-from mons import *
+from datetime import datetime
 
-damage = random(0.8, 1) * (4 * (power * (attack / defense))/50)
+class Pykemon(ABC):
+    def __init__(self, name, dexNum, baseHP, baseAtk, baseDef, baseSpd):
+        self.dexNum = dexNum
+        self.name = name
+        self._baseHP = baseHP
+        self.currentHP = baseHP
+        self.baseAtk = baseAtk
+        self.baseDef = baseDef
+        self.baseSpd = baseSpd
 
-charmander = Pykemon('Charmander', 4, 20, 20, 2, 4, 4, 6, Move()[''])
-
-print("Bienvenido a Pykémon! ¿Te has preparado para el combate?")
-print("Tu rival saca a Squirtle!")
-print("¡Adelante, Charmander!")
-while battle := True:
-    print("----------------------------------------------------------------")
-    print("¿Qué debería hacer Charmander?")
-    print("----------------------------------------------------------------")
-    cmd = input("------------LUCHAR--------------||--------------DATOS-----------")
-    if cmd.casefold() == "luchar" :
-        mv = input('''---------ARAÑAZO-----------||------------(vacío)---------\n
-        ... ----------------------------------------------------------------
-        ... ------------(vacío)-------------||------------(vacío)---------''')
+    @abstractmethod
+    def descripcion_juego(self, name):
         pass
-    elif cmd.casefold() == "datos":
-        pass
-    else:
-        throw ValueError("El comando ingresado no es válido.")
 
+    def harm(self, damage):
+        self.currentHP -= damage
+        if self.currentHP < 0:
+            self.currentHP = 0
+        return round(self.currentHP)
     
+    def generate_data(self):
+        return self.name, datetime.now()
 
+class Electric(Pykemon):
+    def __init__(self, name, dexNum, baseHP, baseAtk, baseDef, baseSpd):
+        super().__init__(name, dexNum, baseHP, baseAtk, baseDef, baseSpd)
+        self.attack = lambda: round(random.uniform(0.8, 1) * (4 * (self.baseAtk * (self.baseAtk / self.baseDef)) / 50))
+
+    def descripcion_juego(self, name):
+        return f'Soy {name}, un Pykemon eléctrico!'
+
+class Fire(Pykemon):
+    def __init__(self, name, dexNum, baseHP, baseAtk, baseDef, baseSpd):
+        super().__init__(name, dexNum, baseHP, baseAtk, baseDef, baseSpd)
+        self.attack = lambda: round(random.uniform(0.8, 1) * (4 * (self.baseAtk * (self.baseAtk / self.baseDef)) / 50))
+
+    def descripcion_juego(self, name):
+        return f'Soy {name}, un Pykemon de fuego!'
+
+class Battle:
+    def __init__(self, pykemons):
+        self.pykemons = pykemons
+
+    def descripcion_juego(self):
+        return 'Bienvenido a Pykemon\n'
+
+    def battle(self):
+        while all(pykemon.currentHP > 0 for pykemon in self.pykemons):
+            for i in range(len(self.pykemons)):
+                attacker = self.pykemons[i]
+                defender = self.pykemons[(i+1) % len(self.pykemons)]
+
+                damage = attacker.attack()
+                print(f'{attacker.name} hace un ataque de {damage}')
+                defender.harm(damage)
+
+                if defender.currentHP <= 0:
+                    print(f'{defender.name} ha sido derrotado. {attacker.name} ha ganado!')
+                    # attacker.name, date = attacker.generate_data()
+                    # return attacker.name
+                    return attacker.name
+
+                print(f'La vida de {attacker.name} es {attacker.currentHP} y del {defender.name} es {defender.currentHP}')
+                # time.sleep(2)
+        return attacker.name
+
+
+pykemons = [Electric('Pikachu', 1, 20, 20, 5, 4), Fire('Charmander', 4, 20, 20, 4, 4)]
+battle = Battle(pykemons)
+print(battle.descripcion_juego())
+for pykemon in pykemons:
+    print(pykemon.descripcion_juego(pykemon.name))
+battle.battle()
