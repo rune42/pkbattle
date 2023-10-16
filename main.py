@@ -52,17 +52,20 @@ class Battle:
                 attacker = self.pykemons[i]
                 defender = self.pykemons[(i+1) % len(self.pykemons)]
 
+
                 damage = attacker.attack()
                 print(f'{attacker.name} hace un ataque de {damage}')
                 defender.harm(damage)
 
                 if defender.currentHP <= 0:
                     print(f'{defender.name} ha sido derrotado. {attacker.name} ha ganado!')
+
                     
                     return logs.get_name([attacker.name, defender.name])
 
                 print(f'La vida de {attacker.name} es {attacker.currentHP} y del {defender.name} es {defender.currentHP}')
                 time.sleep(2)
+
 
 pykemons = [Electric('Pikachu', 1, 18, 18, 5, 4), Fire('Charmander', 4, 18, 18, 5, 4)]
 battle = Battle(pykemons)

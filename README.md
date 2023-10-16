@@ -1,2 +1,2 @@
 # pkbattle
-A simple, text-based Pokémon battle test.
+Pykémon: A simple, text-based Pokémon battle test.
