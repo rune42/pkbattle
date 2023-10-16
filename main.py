@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
-import time
 import random
 from datetime import datetime
+import logs 
 
 class Pykemon(ABC):
     def __init__(self, name, dexNum, baseHP, baseAtk, baseDef, baseSpd):
@@ -63,7 +63,9 @@ class Battle:
                     print(f'{defender.name} ha sido derrotado. {attacker.name} ha ganado!')
                     # attacker.name, date = attacker.generate_data()
                     # return attacker.name
-                    return attacker.name
+                    print(attacker.name)
+                    
+                    return logs.get_name(attacker.name)
 
                 print(f'La vida de {attacker.name} es {attacker.currentHP} y del {defender.name} es {defender.currentHP}')
                 # time.sleep(2)
