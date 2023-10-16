@@ -29,6 +29,8 @@ CREATE TABLE IF NOT EXISTS data (
     date DATE NOT NULL
 
 );
+
+INSERT INTO data (id, name, date) VALUES 
 """
 
 cursor.execute(table_query)
